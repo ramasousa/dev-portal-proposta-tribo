@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta de Squads — Developer Portal Bradesco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#CC092F; --red-dark:#900F15; --red-faint:#FBE9EC;
+  --ink:#0B0E18; --bg:#F7F5F2; --card:#FFFFFF;
+  --g900:#14161F; --g700:#3D4150; --g500:#6B6F80; --g300:#C7C5C0; --g200:#E4E1DC; --g100:#EFEDE8;
+  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  /* squad colors */
+  --s1:#CC092F; --s1-f:#FBE9EC; --s1-deep:#2a0a10;
+  --s2:#1A8754; --s2-f:#E8F5EE; --s2-deep:#0a1f15;
+  --s3:#4F46E5; --s3-f:#EEEDFC; --s3-deep:#140f30;
+  --s4:#B8862E; --s4-f:#FBF3E4; --s4-deep:#211405;
+  --s5:#0EA5E9; --s5-f:#E0F2FE; --s5-deep:#06222e;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--g700);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(247,245,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--g200)}
+.nav-row{max-width:1180px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink)}
+.brand-mark{width:26px;height:26px}
+.nav-links{display:flex;gap:22px;margin-left:8px}
+.nav-links a{font-size:12.5px;font-weight:600;color:var(--g500);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{margin-left:auto}
+.btn-ghost{font-size:12.5px;font-weight:700;color:var(--ink);padding:8px 16px;border:1.5px solid var(--g200);border-radius:100px;background:none;cursor:pointer}
+
+/* ── HERO ── */
+.hero{max-width:1180px;margin:0 auto;padding:64px 32px 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red-dark);background:var(--red-faint);padding:6px 13px;border-radius:100px;margin-bottom:24px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(32px,4.4vw,52px);line-height:1.08;letter-spacing:-.01em;color:var(--ink);max-width:780px}
+.hero h1 em{font-style:italic;color:var(--red)}
+.hero p{font-size:16px;color:var(--g500);max-width:580px;margin-top:18px;line-height:1.6}
+.hero-stats{display:flex;gap:36px;margin-top:36px;flex-wrap:wrap}
+.hstat-n{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--ink);line-height:1}
+.hstat-l{font-size:12px;color:var(--g500);margin-top:4px}
+
+/* ── SECTION ── */
+.section{max-width:1180px;margin:0 auto;padding:0 32px;scroll-margin-top:80px}
+html{scroll-behavior:smooth}
+.section-head{margin:72px 0 28px}
+.section-head .seyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g500);margin-bottom:8px}
+.section-head h2{font-family:var(--serif);font-weight:600;font-size:28px;color:var(--ink);letter-spacing:-.01em}
+.section-head p{font-size:14px;color:var(--g500);margin-top:8px;max-width:640px}
+
+/* ── SQUAD CARDS ── */
+.squad-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:860px){.squad-grid{grid-template-columns:1fr}}
+.squad-card{
+  background:var(--card);border:1px solid var(--g200);border-radius:var(--r);
+  padding:0;overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s;
+}
+.squad-card:hover{box-shadow:0 14px 32px rgba(11,14,24,.09);transform:translateY(-2px)}
+.squad-top{padding:22px 24px 18px;position:relative}
+.squad-top::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
+.squad-num{
+  width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent-f);color:var(--accent);font-family:var(--mono);font-weight:700;font-size:13px;margin-bottom:12px;
+}
+.squad-name{font-family:var(--serif);font-weight:600;font-size:19px;color:var(--ink);margin-bottom:5px}
+.squad-mandate{font-size:13px;color:var(--g500);line-height:1.5}
+.squad-meta{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap}
+.squad-meta-item{font-size:11px;color:var(--g500);display:flex;align-items:center;gap:5px}
+.squad-meta-item b{color:var(--g900);font-weight:700}
+.squad-toggle{
+  padding:11px 24px;border-top:1px solid var(--g100);font-size:11.5px;font-weight:700;color:var(--accent);
+  display:flex;align-items:center;justify-content:space-between;background:var(--g100,#fafafa);
+}
+.squad-detail{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.squad-detail.open{max-height:900px}
+.squad-detail-inner{padding:20px 24px 24px}
+.sd-block{margin-bottom:16px}
+.sd-block:last-child{margin-bottom:0}
+.sd-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g500);margin-bottom:7px}
+.sd-list{list-style:none;font-size:12.5px;color:var(--g700);line-height:1.7}
+.sd-list li{padding-left:14px;position:relative}
+.sd-list li::before{content:'—';position:absolute;left:0;color:var(--accent)}
+.risk-item{
+  display:flex;gap:8px;font-size:12.5px;color:var(--g700);line-height:1.55;margin-bottom:8px;
+  background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:9px 12px;
+}
+.premise-item{
+  display:flex;gap:8px;font-size:12.5px;color:var(--g700);line-height:1.55;margin-bottom:8px;
+  background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:9px 12px;
+}
+
+/* ── FLOW DIAGRAM ── */
+.flow-wrap{background:var(--card);border:1px solid var(--g200);border-radius:18px;padding:36px;overflow-x:auto}
+.flow-svg-container{min-width:780px}
+.flow-node{cursor:pointer}
+.flow-node rect{transition:filter .15s}
+.flow-node:hover rect{filter:brightness(1.05)}
+.flow-arrow-path{transition:opacity .2s,stroke-width .2s}
+.flow-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--g100)}
+.flow-legend-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--g500)}
+.flow-legend-dot{width:9px;height:9px;border-radius:50%}
+.flow-detail-panel{
+  margin-top:20px;padding:18px 20px;background:var(--g100);border-radius:10px;
+  font-size:13px;color:var(--g700);display:none;
+}
+.flow-detail-panel.show{display:block}
+.flow-detail-panel b{color:var(--ink)}
+
+/* ── TOOLS TABLE ── */
+.tools-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--g200)}
+.tools-table th{
+  text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--g500);padding:12px 16px;background:var(--g100);border-bottom:1px solid var(--g200);
+}
+.tools-table td{padding:13px 16px;font-size:13px;color:var(--g700);border-bottom:1px solid var(--g100)}
+.tools-table tr:last-child td{border-bottom:none}
+.tool-cat-badge{
+  font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:100px;display:inline-block;
+}
+
+/* ── RISK MATRIX ── */
+.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:860px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{background:var(--card);border:1px solid var(--g200);border-left:3px solid var(--red);border-radius:10px;padding:18px 20px}
+.risk-card h4{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:7px}
+.risk-card p{font-size:12.5px;color:var(--g500);line-height:1.55}
+
+/* ── AUTONOMY / STRATEGIC BLOCK ── */
+.autonomy-block{
+  background:linear-gradient(135deg,#0D0F1A 0%,#1a0a10 55%,#0D0F1A 100%);
+  border-radius:20px;padding:44px 48px;color:#fff;position:relative;overflow:hidden;margin-bottom:20px;
+}
+.autonomy-block::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 11.5 L12 3 L19 11.5' stroke='%23CC092F' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M3.5 15 L12 6.5 L20.5 15' stroke='%23CC092F' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+  background-size:contain;opacity:.1;transform:rotate(8deg);
+}
+.autonomy-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#A78BFA;margin-bottom:16px}
+.autonomy-block h3{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.2;margin-bottom:14px;max-width:560px}
+.autonomy-block p{font-size:14px;color:rgba(255,255,255,.62);line-height:1.65;max-width:600px;margin-bottom:24px}
+.autonomy-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:640px}
+@media(max-width:640px){.autonomy-compare{grid-template-columns:1fr}}
+.autonomy-col{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 20px}
+.autonomy-col-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.autonomy-col.before .autonomy-col-label{color:#FCA5A5}
+.autonomy-col.after .autonomy-col-label{color:#86EFAC}
+.autonomy-col ul{list-style:none;font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.8}
+.autonomy-col li{padding-left:14px;position:relative}
+.autonomy-col.before li::before{content:'✕';position:absolute;left:0;color:#FCA5A5;font-size:10px}
+.autonomy-col.after li::before{content:'✓';position:absolute;left:0;color:#86EFAC;font-size:10px}
+
+footer{border-top:1px solid var(--g200);padding:36px 32px;text-align:center;font-size:12px;color:var(--g300);margin-top:80px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-row">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5 11.5 L12 3 L19 11.5" stroke="#CC092F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3.5 15 L12 6.5 L20.5 15" stroke="#CC092F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/>
+          <path d="M9.5 15.5 L9.5 21 M14.5 15.5 L14.5 21" stroke="#0B0E18" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      Bradesco Developers
+    </div>
+    <div class="nav-links">
+      <a href="#squads" onclick="return navScroll(event,'squads')">Squads</a>
+      <a href="#fluxo" onclick="return navScroll(event,'fluxo')">Fluxo de Dependências</a>
+      <a href="#autonomia" onclick="return navScroll(event,'autonomia')">Autonomia & Infra</a>
+      <a href="#ferramentas" onclick="return navScroll(event,'ferramentas')">Ferramentas</a>
+      <a href="#riscos" onclick="return navScroll(event,'riscos')">Riscos</a>
+    </div>
+    <div class="nav-cta"><button class="btn-ghost">Proposta de Programa</button></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span>Proposta de Squads · Developer Portal</div>
+  <h1>Cinco squads, um <em>contrato único</em> de dependências.</h1>
+  <p>Organização desenhada a partir das 37 funcionalidades já validadas no protótipo — não de uma estrutura genérica de squad. Quatro squads de Build (Scrum) e uma squad de Run (Kanban), responsável por garantir o pleno funcionamento dos clientes já integrados. Cada bloco abaixo é clicável para ver capabilities, riscos e premissas completos.</p>
+  <div class="hero-stats">
+    <div><div class="hstat-n">5</div><div class="hstat-l">Squads</div></div>
+    <div><div class="hstat-n">~38</div><div class="hstat-l">Pessoas no programa</div></div>
+    <div><div class="hstat-n">37</div><div class="hstat-l">Funcionalidades mapeadas</div></div>
+    <div><div class="hstat-n">3</div><div class="hstat-l">Riscos transversais</div></div>
+  </div>
+</header>
+
+<div class="section" id="squads">
+  <div class="section-head">
+    <div class="seyebrow">Organização</div>
+    <h2>As quatro squads</h2>
+    <p>Agrupadas por natureza do trabalho, não por feature isolada. As Squads 1-4 constroem (Build, Scrum); a Squad 5 garante que o que já está em produção continue funcionando (Run, Kanban).</p>
+  </div>
+
+  <div class="squad-grid">
+
+    <div class="squad-card" style="--accent:var(--s1);--accent-f:var(--s1-f)">
+      <div class="squad-top">
+        <div class="squad-num">01</div>
+        <div class="squad-name">Plataforma & Identidade</div>
+        <div class="squad-mandate">Tudo que decide quem acessa o quê, e a casca que sustenta o portal inteiro.</div>
+        <div class="squad-meta">
+          <span class="squad-meta-item"><b>8</b> pessoas</span>
+          <span class="squad-meta-item"><b>5</b> capabilities</span>
+          <span class="squad-meta-item"><b>2</b> riscos</span>
+          <span class="squad-meta-item" style="font-family:var(--mono);color:var(--accent);font-weight:700">Scrum</span>
+        </div>
+      </div>
+      <div class="squad-toggle" onclick="toggleSquad(this)">Ver capabilities, riscos e premissas <span>▾</span></div>
+      <div class="squad-detail">
+        <div class="squad-detail-inner">
+          <div class="sd-block">
+            <div class="sd-label">Capabilities</div>
+            <ul class="sd-list">
+              <li>Autenticação (OAuth2, Azure AD/Entra ID, MFA)</li>
+              <li>Gestão de sessão e estado (logado / visitante / deslogado)</li>
+              <li>Cadastro, geração e ciclo de vida de credenciais</li>
+              <li>Console do desenvolvedor (métricas, logs, Apps, webhooks)</li>
+              <li>Dark mode, i18n, acessibilidade, design system</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Escopo coberto hoje no protótipo</div>
+            <ul class="sd-list">
+              <li>Login com Azure AD, MFA, wizard de credenciais (4 passos)</li>
+              <li>Console, gate de acesso ao BaaS+IA</li>
+              <li>Toggle dark/light, toggle PT/EN, tour guiado interativo</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Perfis (8)</div>
+            <ul class="sd-list">
+              <li>1 PM · 2 backend (Identity/IAM) · 2 frontend (design system) · 1 segurança/AppSec · 1 designer de produto · 1 tech lead</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Riscos</div>
+            <div class="risk-item">Maior risco do programa: integração real com Azure AD/Entra ID em produção (hoje simulada) — exige alinhamento com o time de Identity corporativo, fora do controle da squad.</div>
+            <div class="risk-item">MFA toca compliance/segurança — atraso de aprovação de AppSec trava as demais squads, que dependem de login funcionando para testar suas áreas.</div>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Premissas</div>
+            <div class="premise-item">Time de Identity/IAM corporativo disponibiliza ambiente de Azure AD até o fim do Sprint 2.</div>
+            <div class="premise-item">Design system é definido por esta squad e consumido — não recriado — pelas demais.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="squad-card" style="--accent:var(--s2);--accent-f:var(--s2-f)">
+      <div class="squad-top">
+        <div class="squad-num">02</div>
+        <div class="squad-name">Produtos Financeiros</div>
+        <div class="squad-mandate">Documentação e exemplos de API para CaaS, PIX, Seguros e Consórcio — o maior volume de conteúdo do portal.</div>
+        <div class="squad-meta">
+          <span class="squad-meta-item"><b>8</b> pessoas</span>
+          <span class="squad-meta-item"><b>4</b> capabilities</span>
+          <span class="squad-meta-item"><b>2</b> riscos</span>
+          <span class="squad-meta-item" style="font-family:var(--mono);color:var(--accent);font-weight:700">Scrum</span>
+        </div>
+      </div>
+      <div class="squad-toggle" onclick="toggleSquad(this)">Ver capabilities, riscos e premissas <span>▾</span></div>
+      <div class="squad-detail">
+        <div class="squad-detail-inner">
+          <div class="sd-block">
+            <div class="sd-label">Capabilities</div>
+            <ul class="sd-list">
+              <li>Documentação de API Reference por produto</li>
+              <li>Exemplos de código padronizados (cURL/Node/Python/Java)</li>
+              <li>Sandbox sintético (CNPJ/CPF com cenário controlável)</li>
+              <li>Referências transversais: Idempotência, Rate Limits, Erros por Cenário</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Escopo coberto hoje no protótipo</div>
+            <ul class="sd-list">
+              <li>CaaS (Simulação, Proposta, Garantias, Assinatura, Desembolso)</li>
+              <li>PIX (Cobrança, Pagamento, Webhooks) · Seguros (Cotação, Apólice) · Consórcio (Simulação, Lances)</li>
+              <li>15 endpoints documentados, 8 cenários de diagnóstico de erro</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Perfis (8)</div>
+            <ul class="sd-list">
+              <li>1 PM · 3 backend (um por domínio) · 2 technical writers · 1 frontend · 1 QA</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Riscos</div>
+            <div class="risk-item">Maior volume de conteúdo do portal — risco de doc desatualizar mais rápido que as outras squads conseguem revisar.</div>
+            <div class="risk-item">Depende de specs OpenAPI reais e atualizadas dos times de produto — se a API muda sem aviso, a doc diverge silenciosamente.</div>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Premissas</div>
+            <div class="premise-item">Specs OpenAPI 3.1 de cada produto existem ou serão entregues até o início do desenvolvimento desta squad.</div>
+            <div class="premise-item">O padrão de 4 linguagens definido no protótipo é oficial — todo endpoint novo segue sem exceção.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="squad-card" style="--accent:var(--s3);--accent-f:var(--s3-f)">
+      <div class="squad-top">
+        <div class="squad-num">03</div>
+        <div class="squad-name">BaaS + IA & Inovação</div>
+        <div class="squad-mandate">Tudo que não existe em nenhum concorrente nacional — o motivo de o portal ser notícia, não só documentação.</div>
+        <div class="squad-meta">
+          <span class="squad-meta-item"><b>8</b> pessoas</span>
+          <span class="squad-meta-item"><b>4</b> capabilities</span>
+          <span class="squad-meta-item"><b>3</b> riscos</span>
+          <span class="squad-meta-item" style="font-family:var(--mono);color:var(--accent);font-weight:700">Scrum</span>
+        </div>
+      </div>
+      <div class="squad-toggle" onclick="toggleSquad(this)">Ver capabilities, riscos e premissas <span>▾</span></div>
+      <div class="squad-detail">
+        <div class="squad-detail-inner">
+          <div class="sd-block">
+            <div class="sd-label">Capabilities</div>
+            <ul class="sd-list">
+              <li>MCP Server (Model Context Protocol) — Claude, GPT, Gemini</li>
+              <li>gRPC — arquitetura multi-estado (Débito Veicular) e produtos futuros de alta frequência</li>
+              <li>Chatbot de suporte com IA real (não simulada)</li>
+              <li>Vitrine pública / catálogo de APIs — a porta de entrada do portal</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Escopo coberto hoje no protótipo</div>
+            <ul class="sd-list">
+              <li>BaaS+MCP (7 tools, gate de login)</li>
+              <li>Débito Veicular REST+gRPC com contrato multi-UF (SP/RJ/MG/BA + adição de PR)</li>
+              <li>Vitrine pública com 15 cards e busca, chatbot simulado na Status Page</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Perfis (8)</div>
+            <ul class="sd-list">
+              <li>1 PM · 2 backend IA/LLM · 1 backend gRPC/Protobuf · 2 frontend (vitrine) · 1 prompt engineering/MCP · 1 tech lead</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Riscos</div>
+            <div class="risk-item"><b>Mais alto risco técnico do programa:</b> conectar o chatbot a um LLM real exige backend próprio — chave de API nunca pode ficar exposta no cliente.</div>
+            <div class="risk-item">MCP é tecnologia recente — risco de a especificação do protocolo evoluir durante o desenvolvimento.</div>
+            <div class="risk-item">Maior visibilidade executiva do programa — risco de pressão por prazo comprometer segurança do MCP Server.</div>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Premissas</div>
+            <div class="premise-item">Orçamento de API de LLM aprovado e Key Vault disponível antes do chatbot sair do estágio simulado.</div>
+            <div class="premise-item">Vitrine pública não exige login — mudança de política de acesso aqui precisa de aprovação de produto.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="squad-card" style="--accent:var(--s4);--accent-f:var(--s4-f)">
+      <div class="squad-top">
+        <div class="squad-num">04</div>
+        <div class="squad-name">Developer Experience & Confiabilidade</div>
+        <div class="squad-mandate">A diferença entre "documentação que existe" e "documentação que as pessoas conseguem usar sem abrir ticket".</div>
+        <div class="squad-meta">
+          <span class="squad-meta-item"><b>8</b> pessoas</span>
+          <span class="squad-meta-item"><b>6</b> capabilities</span>
+          <span class="squad-meta-item"><b>2</b> riscos</span>
+          <span class="squad-meta-item" style="font-family:var(--mono);color:var(--accent);font-weight:700">Scrum</span>
+        </div>
+      </div>
+      <div class="squad-toggle" onclick="toggleSquad(this)">Ver capabilities, riscos e premissas <span>▾</span></div>
+      <div class="squad-detail">
+        <div class="squad-detail-inner">
+          <div class="sd-block">
+            <div class="sd-label">Capabilities</div>
+            <ul class="sd-list">
+              <li>SDKs (Java, Node.js, Python) + testes de exemplo</li>
+              <li>Postman Hub (collections geradas a partir da spec)</li>
+              <li>Status Page (uptime, SLA histórico)</li>
+              <li>Versionamento / Deprecation Policy</li>
+              <li>Guia de Migração Sandbox → Produção</li>
+              <li>Webhooks (histórico de entregas, replay)</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Escopo coberto hoje no protótipo</div>
+            <ul class="sd-list">
+              <li>3 SDKs com testes (JUnit+Mockito, Jest, pytest)</li>
+              <li>Postman Hub com diff de sincronização, Status Page com histórico de 90 dias</li>
+              <li>Versionamento com headers Deprecation/Sunset, replay de webhook funcional</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Perfis (8)</div>
+            <ul class="sd-list">
+              <li>1 PM · 3 backend (um por SDK) · 1 DevOps/SRE · 1 technical writer · 1 QA automação · 1 tech lead</li>
+            </ul>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Riscos</div>
+            <div class="risk-item">Manter 3 SDKs sincronizados é trabalho contínuo, não um projeto com fim — risco de subdimensionar capacidade pós-lançamento.</div>
+            <div class="risk-item">Status Page com dados reais depende de instrumentação real de observabilidade — hoje simulado.</div>
+          </div>
+          <div class="sd-block">
+            <div class="sd-label">Premissas</div>
+            <div class="premise-item">Pipeline de CI/CD já documentado no Guia Técnico está disponível como base, não precisa ser desenhado do zero.</div>
+            <div class="premise-item">Política de Deprecation (12 meses de aviso) já definida — esta squad implementa, não decide.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-head" style="margin-top:56px">
+    <div class="seyebrow">Operação</div>
+    <h2>A quinta squad — Run</h2>
+    <p>Diferente das demais (que constroem), esta squad garante que clientes já integrados continuem funcionando. Modelo operacional, não de projeto — fluxo contínuo via Kanban, não sprints.</p>
+  </div>
+
+  <div class="squad-card" style="--accent:var(--s5);--accent-f:var(--s5-f)">
+    <div class="squad-top">
+      <div class="squad-num">05</div>
+      <div class="squad-name">Run — Operação & Sucesso do Cliente Integrado</div>
+      <div class="squad-mandate">Garante o pleno funcionamento de todo cliente já integrado, em qualquer produto — CaaS, PIX, Seguros, Consórcio, BaaS+IA e Débito Veicular. É o "Run it" do Build it and Run it.</div>
+      <div class="squad-meta">
+        <span class="squad-meta-item"><b>8</b> pessoas</span>
+        <span class="squad-meta-item"><b>5</b> capabilities</span>
+        <span class="squad-meta-item"><b>2</b> riscos</span>
+        <span class="squad-meta-item" style="font-family:var(--mono);color:var(--accent);font-weight:700">Kanban</span>
+      </div>
+    </div>
+    <div class="squad-toggle" onclick="toggleSquad(this)">Ver capabilities, riscos e premissas <span>▾</span></div>
+    <div class="squad-detail">
+      <div class="squad-detail-inner">
+        <div class="sd-block">
+          <div class="sd-label">Capabilities</div>
+          <ul class="sd-list">
+            <li>Monitoramento transversal de todos os produtos em produção</li>
+            <li>Triagem e resolução de incidentes (Status Page, alertas, dead-letter queue de webhooks)</li>
+            <li>Suporte a parceiros integrados — N1/N2, escalação para squads de Build quando necessário</li>
+            <li>Gestão de rate limit e cota por cliente em produção real</li>
+            <li>Acompanhamento de SLA e relacionamento pós-integração (não pós-venda — pós-<em>integração técnica</em>)</li>
+          </ul>
+        </div>
+        <div class="sd-block">
+          <div class="sd-label">Por que Kanban, não Scrum</div>
+          <ul class="sd-list">
+            <li>O trabalho chega de forma imprevisível (incidente, ticket, alerta) — não cabe em backlog priorizado por sprint</li>
+            <li>Métrica de sucesso é tempo de resolução (lead time), não velocidade de entrega de feature</li>
+            <li>Fluxo contínuo: a squad nunca "termina uma sprint" — ela sustenta uma operação 24/7</li>
+          </ul>
+        </div>
+        <div class="sd-block">
+          <div class="sd-label">Perfis (8)</div>
+          <ul class="sd-list">
+            <li>1 PM (ou Service Owner) · 3 engenheiros de suporte/SRE (plantão revezado) · 2 especialistas de produto (cobrindo os 6 produtos em dupla) · 1 analista de observabilidade · 1 tech lead de operação</li>
+          </ul>
+        </div>
+        <div class="sd-block">
+          <div class="sd-label">Riscos</div>
+          <div class="risk-item">Cobrir 6 produtos diferentes com 8 pessoas exige rodízio de conhecimento bem documentado — risco de dependência de pessoa-chave (bus factor) se o conhecimento não for distribuído.</div>
+          <div class="risk-item">Interface entre Run e as squads de Build precisa de protocolo claro de escalação — sem isso, incidentes complexos ficam "jogados" entre squads sem dono.</div>
+        </div>
+        <div class="sd-block">
+          <div class="sd-label">Premissas</div>
+          <div class="premise-item">Observabilidade real (Dynatrace ou equivalente) está disponível — sem isso, a squad de Run não tem visibilidade real do que está acontecendo em produção.</div>
+          <div class="premise-item">Cada squad de Build documenta um runbook de troubleshooting para suas funcionalidades antes do go-live — Run não deveria precisar abrir o código-fonte para diagnosticar um incidente comum.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ FLOW DIAGRAM ═══ -->
+<div class="section" id="fluxo">
+  <div class="section-head">
+    <div class="seyebrow">Integração entre squads</div>
+    <h2>Fluxo de dependências</h2>
+    <p>Clique em cada squad para ver o que ela entrega e de quem ela depende. As setas mostram a direção real — quem fornece para quem.</p>
+  </div>
+
+  <div class="flow-wrap">
+    <div class="flow-svg-container">
+      <svg viewBox="0 0 780 460" style="width:100%;height:auto" id="flow-svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--g500)"/>
+          </marker>
+        </defs>
+
+        <!-- Arrows: Squad1 -> 2,3,4 ; Squad2 -> 4 ; Squad3 -> 4 -->
+        <path class="flow-arrow-path" d="M 190,90 L 190,150" stroke="var(--s1)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".5"/>
+        <path class="flow-arrow-path" d="M 230,70 C 380,70 380,70 560,150" stroke="var(--s1)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".5"/>
+        <path class="flow-arrow-path" d="M 260,55 C 500,20 650,60 690,150" stroke="var(--s1)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".5"/>
+        <path class="flow-arrow-path" d="M 190,230 L 600,230" stroke="var(--s2)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".5"/>
+        <path class="flow-arrow-path" d="M 600,180 L 620,180" stroke="var(--s3)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0"/>
+        <path class="flow-arrow-path" d="M 560,200 C 600,260 600,260 620,260" stroke="var(--s3)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".5"/>
+
+        <!-- Node 1: Plataforma -->
+        <g class="flow-node" onclick="flowDetail(1)">
+          <rect x="120" y="20" width="140" height="60" rx="10" fill="var(--s1-f)" stroke="var(--s1)" stroke-width="1.5"/>
+          <text x="190" y="44" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="var(--ink)">01 · Plataforma</text>
+          <text x="190" y="60" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--g500)">&amp; Identidade</text>
+        </g>
+
+        <!-- Node 2: Produtos -->
+        <g class="flow-node" onclick="flowDetail(2)">
+          <rect x="120" y="180" width="140" height="60" rx="10" fill="var(--s2-f)" stroke="var(--s2)" stroke-width="1.5"/>
+          <text x="190" y="204" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="var(--ink)">02 · Produtos</text>
+          <text x="190" y="220" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--g500)">Financeiros</text>
+        </g>
+
+        <!-- Node 3: BaaS IA -->
+        <g class="flow-node" onclick="flowDetail(3)">
+          <rect x="490" y="120" width="140" height="60" rx="10" fill="var(--s3-f)" stroke="var(--s3)" stroke-width="1.5"/>
+          <text x="560" y="144" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="var(--ink)">03 · BaaS + IA</text>
+          <text x="560" y="160" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--g500)">&amp; Inovação</text>
+        </g>
+
+        <!-- Node 4: DX -->
+        <g class="flow-node" onclick="flowDetail(4)">
+          <rect x="610" y="200" width="150" height="60" rx="10" fill="var(--s4-f)" stroke="var(--s4)" stroke-width="1.5"/>
+          <text x="685" y="224" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="var(--ink)">04 · DX &amp;</text>
+          <text x="685" y="240" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--g500)">Confiabilidade</text>
+        </g>
+        <!-- Arrows into Run (Squad 5) from all Build squads -->
+        <path class="flow-arrow-path" d="M 190,240 L 280,380" stroke="var(--s1)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".35"/>
+        <path class="flow-arrow-path" d="M 190,240 L 380,380" stroke="var(--s2)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".35"/>
+        <path class="flow-arrow-path" d="M 560,180 L 460,380" stroke="var(--s3)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".35"/>
+        <path class="flow-arrow-path" d="M 685,260 L 560,380" stroke="var(--s4)" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity=".35"/>
+
+        <!-- Node 5: Run -->
+        <g class="flow-node" onclick="flowDetail(5)">
+          <rect x="270" y="390" width="300" height="60" rx="10" fill="var(--s5-f)" stroke="var(--s5)" stroke-width="1.5"/>
+          <text x="420" y="414" text-anchor="middle" font-family="Inter" font-size="11" font-weight="700" fill="var(--ink)">05 · Run — Operação</text>
+          <text x="420" y="430" text-anchor="middle" font-family="Inter" font-size="9.5" fill="var(--g500)">Kanban · todos os produtos em produção</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="flow-legend">
+      <div class="flow-legend-item"><span class="flow-legend-dot" style="background:var(--s1)"></span>Plataforma fornece design system + login para todas</div>
+      <div class="flow-legend-item"><span class="flow-legend-dot" style="background:var(--s2)"></span>Produtos fornece specs para SDK/Postman</div>
+      <div class="flow-legend-item"><span class="flow-legend-dot" style="background:var(--s3)"></span>BaaS+IA fornece specs para SDK/Postman</div>
+      <div class="flow-legend-item"><span class="flow-legend-dot" style="background:var(--s5)"></span>Run recebe tudo que vai para produção (Build → Run)</div>
+    </div>
+
+    <div class="flow-detail-panel" id="flow-detail-panel"></div>
+  </div>
+</div>
+
+<!-- ═══ TOOLS ═══ -->
+<div class="section" id="ferramentas">
+  <div class="section-head">
+    <div class="seyebrow">Stack recomendada</div>
+    <h2>Ferramentas a considerar</h2>
+    <p>Mapeadas a partir do que o protótipo já especifica tecnicamente — não uma lista genérica de mercado.</p>
+  </div>
+
+  <table class="tools-table">
+    <thead><tr><th>Ferramenta</th><th>Squad</th><th>Para quê</th></tr></thead>
+    <tbody>
+      <tr><td><b>Azure AD / Microsoft Entra ID</b></td><td><span class="tool-cat-badge" style="background:var(--s1-f);color:var(--s1)">Plataforma</span></td><td>Identidade real, OAuth2 + OIDC + MFA — já é o padrão corporativo do banco</td></tr>
+      <tr><td><b>Azure Key Vault</b></td><td><span class="tool-cat-badge" style="background:var(--s1-f);color:var(--s1)">Plataforma</span></td><td>Cofre de segredos — obrigatório antes de qualquer chave de API real (LLM, etc.)</td></tr>
+      <tr><td><b>OpenAPI 3.1 + openapi-generator</b></td><td><span class="tool-cat-badge" style="background:var(--s2-f);color:var(--s2)">Produtos</span></td><td>Fonte única de verdade para docs, SDKs e collections Postman</td></tr>
+      <tr><td><b>Postman / openapi-to-postmanv2</b></td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td><td>Geração automática de collections a partir da spec — evita divergência manual</td></tr>
+      <tr><td><b>MCP SDK (Anthropic)</b></td><td><span class="tool-cat-badge" style="background:var(--s3-f);color:var(--s3)">BaaS+IA</span></td><td>Implementação de referência do protocolo MCP Server</td></tr>
+      <tr><td><b>gRPC + Protocol Buffers</b></td><td><span class="tool-cat-badge" style="background:var(--s3-f);color:var(--s3)">BaaS+IA</span></td><td>Contrato multi-UF do Débito Veicular e futuros produtos de alta frequência</td></tr>
+      <tr><td><b>Dynatrace (ou equivalente APM)</b></td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td><td>Instrumentação real para a Status Page sair do estágio simulado</td></tr>
+      <tr><td><b>ServiceNow</b></td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td><td>Integração real para "Abrir chamado" — hoje simulado no chatbot</td></tr>
+      <tr><td><b>JUnit 5 + Mockito / Jest / pytest</b></td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td><td>Frameworks de teste já definidos como padrão para os 3 SDKs</td></tr>
+      <tr><td><b>GitHub Actions</b></td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td><td>CI/CD — já documentado no Guia Técnico como base do pipeline</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ AUTONOMY ═══ -->
+<div class="section" id="autonomia">
+  <div class="section-head">
+    <div class="seyebrow">Argumento estratégico</div>
+    <h2>Por que isso importa além da tecnologia</h2>
+    <p>Esta proposta não é só evolução de produto — é uma mudança de postura frente ao vendor lock-in que hoje limita o ritmo de inovação do portal.</p>
+  </div>
+
+  <div class="autonomy-block">
+    <div class="autonomy-eyebrow">⚡ Autonomia de plataforma</div>
+    <h3>Hoje dependemos da Axway para evoluir o portal. Essa proposta nos tira dessa dependência.</h3>
+    <p>Toda mudança de arquitetura, todo produto novo, toda integração com IA — hoje passa pelo roadmap e pelos prazos de um fornecedor externo. As capabilities construídas neste protótipo (MCP Server, gRPC multi-UF, Sandbox sintético, SDKs próprios) rodam em arquitetura sob nosso controle, não amarrada a licenciamento ou ciclo de release de terceiros.</p>
+
+    <div class="autonomy-compare">
+      <div class="autonomy-col before">
+        <div class="autonomy-col-label">Hoje — com Axway</div>
+        <ul>
+          <li>Roadmap de evolução depende do vendor</li>
+          <li>Customização limitada ao que o produto permite</li>
+          <li>Licenciamento recorrente, custo cresce com volume</li>
+          <li>Recursos de IA (MCP) fora do escopo do produto</li>
+        </ul>
+      </div>
+      <div class="autonomy-col after">
+        <div class="autonomy-col-label">Com a proposta</div>
+        <ul>
+          <li>Roadmap controlado internamente, sprint a sprint</li>
+          <li>Arquitetura própria, sem limite de customização</li>
+          <li>Custo de infra previsível, sem licenciamento por volume</li>
+          <li>MCP, gRPC e IA nativos — não dependem de roadmap externo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" style="margin-top:48px">
+    <div class="seyebrow">Infraestrutura</div>
+    <h2>Cloud, MCP e AI Gateway — pré-requisitos</h2>
+    <p>O que precisa estar pronto antes de qualquer squad sair do protótipo para produção.</p>
+  </div>
+
+  <table class="tools-table" style="margin-bottom:0">
+    <thead><tr><th>Camada</th><th>Pré-requisito</th><th>Squad responsável</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cloud</b></td><td>Ambiente próprio (AWS/Azure) provisionado para hospedar backend de MCP, gRPC e SDKs — fora da infraestrutura do vendor atual</td><td><span class="tool-cat-badge" style="background:var(--s1-f);color:var(--s1)">Plataforma</span></td></tr>
+      <tr><td><b>AI Gateway</b></td><td>Camada intermediária entre o portal e os provedores de LLM (Claude/GPT/Gemini) — controla custo, rate limit e roteamento por modelo, sem expor chave de API ao cliente</td><td><span class="tool-cat-badge" style="background:var(--s3-f);color:var(--s3)">BaaS+IA</span></td></tr>
+      <tr><td><b>MCP Server</b></td><td>Ambiente de execução dedicado para o protocolo MCP — precisa de isolamento de rede e política de autenticação própria, distinta do gateway REST tradicional</td><td><span class="tool-cat-badge" style="background:var(--s3-f);color:var(--s3)">BaaS+IA</span></td></tr>
+      <tr><td><b>Observabilidade</b></td><td>APM real (Dynatrace ou equivalente) substituindo os dados simulados da Status Page — pré-requisito para SLA real ser publicado</td><td><span class="tool-cat-badge" style="background:var(--s4-f);color:var(--s4)">DX</span></td></tr>
+      <tr><td><b>Identidade</b></td><td>Ambiente de Azure AD/Entra ID dedicado ao portal, integrado ao IAM corporativo já existente no banco</td><td><span class="tool-cat-badge" style="background:var(--s1-f);color:var(--s1)">Plataforma</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ RISKS ═══ -->
+<div class="section" id="riscos">
+  <div class="section-head">
+    <div class="seyebrow">Atenção do programa</div>
+    <h2>Riscos transversais</h2>
+    <p>Afetam mais de uma squad — não pertencem a nenhuma isoladamente.</p>
+  </div>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <h4>Specs desatualizadas ou inexistentes</h4>
+      <p>Atravessa as Squads 2, 3 e 4 — todas dependem de specs reais dos times de produto. Recomenda-se um gate de "spec congelada" antes de cada squad iniciar a documentação.</p>
+    </div>
+    <div class="risk-card">
+      <h4>Chave de API de LLM exposta</h4>
+      <p>Se o chatbot da Squad 3 for promovido de simulado para real sem o backend-proxy já documentado no Guia Técnico, há risco real de vazamento de credencial.</p>
+    </div>
+    <div class="risk-card">
+      <h4>Divergência doc × API real</h4>
+      <p>Sem o gate de CI de <code style="font-family:var(--mono);font-size:11.5px">/diff</code> já especificado para o Postman Hub, qualquer squad pode publicar documentação desalinhada da API em produção.</p>
+    </div>
+    <div class="risk-card" style="border-left-color:var(--s5)">
+      <h4>Interface Build × Run mal definida</h4>
+      <p>Sem um protocolo claro de escalação e runbooks obrigatórios antes do go-live, incidentes complexos podem ficar sem dono entre a Squad 5 (Run) e as 4 squads de Build — risco que cresce conforme mais produtos entram em produção.</p>
+    </div>
+  </div>
+</div>
+
+<footer>Proposta de Squads — Developer Portal Bradesco · Documento de planejamento de programa</footer>
+
+<script>
+function toggleSquad(toggleEl) {
+  const detail = toggleEl.nextElementSibling;
+  const isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open', !isOpen);
+  toggleEl.querySelector('span').textContent = isOpen ? '▾' : '▴';
+}
+
+const FLOW_DETAILS = {
+  1: { name: '01 · Plataforma & Identidade', color: 'var(--s1)',
+       text: '<b>Fornece para:</b> design system e componentes de UI (Squads 2, 3, 4) · estado de login/sessão usado pelo gate de BaaS (Squad 3) · runbook de identidade para a Run (Squad 5).<br><b>Não depende de nenhuma outra squad</b> — recomenda-se que comece 2-3 sprints antes das demais.' },
+  2: { name: '02 · Produtos Financeiros', color: 'var(--s2)',
+       text: '<b>Fornece para:</b> specs OpenAPI consumidas pelos SDKs e Postman Hub (Squad 4) · runbook de troubleshooting para a Run (Squad 5).<br><b>Depende de:</b> design system e autenticação (Squad 1).' },
+  3: { name: '03 · BaaS + IA & Inovação', color: 'var(--s3)',
+       text: '<b>Fornece para:</b> specs do MCP Server e Débito Veicular consumidas pelos SDKs e Postman Hub (Squad 4) · runbook de troubleshooting para a Run (Squad 5).<br><b>Depende de:</b> design system e gate de login (Squad 1).' },
+  4: { name: '04 · DX & Confiabilidade', color: 'var(--s4)',
+       text: '<b>Fornece para:</b> Status Page e dados de uptime usados pela Run (Squad 5) para monitoramento.<br><b>Depende de:</b> design system (Squad 1), specs de produtos financeiros (Squad 2) e specs de BaaS+IA (Squad 3).' },
+  5: { name: '05 · Run — Operação', color: 'var(--s5)',
+       text: '<b>Não fornece capability nova</b> — consome o que as 4 squads de Build entregam (runbooks, Status Page, design system) para sustentar produção.<br><b>Depende de:</b> todas as squads de Build (1, 2, 3 e 4) — é o ponto de chegada do fluxo, não de partida.' }
+};
+
+function flowDetail(n) {
+  const panel = document.getElementById('flow-detail-panel');
+  const d = FLOW_DETAILS[n];
+  panel.innerHTML = '<b style="color:' + d.color + '">' + d.name + '</b><br><br>' + d.text;
+  panel.classList.add('show');
+
+  // Highlight arrows related to this node, dim the rest
+  document.querySelectorAll('.flow-arrow-path').forEach(p => p.setAttribute('opacity', '.15'));
+  const colorVar = { 1: '--s1', 2: '--s2', 3: '--s3', 4: '--s4', 5: '--s5' }[n];
+  document.querySelectorAll('.flow-arrow-path[stroke="var(' + colorVar + ')"]').forEach(p => p.setAttribute('opacity', '.9'));
+}
+function navScroll(event, id) {
+  event.preventDefault();
+  const target = document.getElementById(id);
+  if (!target) return false;
+  const nav = document.querySelector('.nav');
+  const navHeight = nav ? nav.offsetHeight : 62;
+  const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+  window.scrollTo({ top: targetTop - navHeight - 16, behavior: 'smooth' });
+  return false;
+}
+
+</script>
+
+</body>
+</html>
